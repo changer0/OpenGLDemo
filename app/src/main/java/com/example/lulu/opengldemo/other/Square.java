@@ -1,4 +1,4 @@
-package com.example.lulu.opengldemo;
+package com.example.lulu.opengldemo.other;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
