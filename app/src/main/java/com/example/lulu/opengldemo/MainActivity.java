@@ -3,12 +3,10 @@ package com.example.lulu.opengldemo;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
-import android.opengl.GLUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.AttributeSet;
 
-import com.example.lulu.opengldemo.other.MyGLSurfaceView;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -42,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     //自定义渲染器(OpenGL ES 开发中最为重要的部分)
     class MyRenderer implements GLSurfaceView.Renderer {
 
+        private float ratio;
+
         //表层创建时
         @Override
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
         //表层size变化时
         @Override
         public void onSurfaceChanged(GL10 gl, int width, int height) {
-            //设置视口 输出画面的区域
+            //设置视口 输出画面的区域 (从左下角开始)
             gl.glViewport(0, 0, width, height);
 
-            float ratio = (float)width / (float)height;
+            ratio = (float)width / (float)height;
             //设置矩阵模式  投影矩阵 (openGL基于状态机)
             gl.glMatrixMode(GL10.GL_PROJECTION);
             //加载单位矩阵
@@ -84,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
             //绘制数组
             //三角形坐标
             float[] coords = {
-                    0f, 0.5f, 0f,
-                    -0.5f, -0.5f, 0f,
-                    0.5f, -0.5f, 0f,
+                    0f, ratio, 2f,
+                    -1f, -ratio, 2f,
+                    1f, -ratio, 2f,
             };
             //分配字节缓存区空间, 存放定点坐标数据
             // 一个字节 8位  浮点数4个字节
