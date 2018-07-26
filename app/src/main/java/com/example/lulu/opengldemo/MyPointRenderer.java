@@ -20,6 +20,9 @@ public class MyPointRenderer implements GLSurfaceView.Renderer{
 
     private float ratio;
 
+    public float xrotate = 0f; //围绕x轴旋转角度
+    public float yrotate = 0f;  //围绕y轴旋转角度
+
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         //设置清屏色
@@ -58,7 +61,8 @@ public class MyPointRenderer implements GLSurfaceView.Renderer{
         //旋转角度
         //angle: 旋转角度
         //x,y,z: 沿着哪个轴旋转(向量) 迎面轴正方向看去, 顺时针: 负值 逆时针: 正值
-        gl.glRotatef(-90, 1, 0, 0);
+        gl.glRotatef(xrotate, 1, 0, 0);//绕x轴旋转
+        gl.glRotatef(yrotate, 0, 1, 0);//绕y轴旋转
 
         //计算点坐标
         float r = 0.5f;//半径
@@ -85,7 +89,7 @@ public class MyPointRenderer implements GLSurfaceView.Renderer{
         fbb.position(0);
         //指定顶点指针
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, ibb);
-        //画数组 (0
+        //画数组
         gl.glDrawArrays(GL10.GL_POINTS, 0, coordsList.size() / 3);
     }
 }
