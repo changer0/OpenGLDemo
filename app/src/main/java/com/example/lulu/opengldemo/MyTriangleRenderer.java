@@ -33,14 +33,14 @@ class MyTriangleRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         //设置视口 输出画面的区域 (从左下角开始)
         gl.glViewport(0, 0, width, height);
-
+        //为保证比例采用ratio
         ratio = (float) width / (float) height;
         //设置矩阵模式  投影矩阵 (openGL基于状态机)
         gl.glMatrixMode(GL10.GL_PROJECTION);
         //加载单位矩阵
         gl.glLoadIdentity();
         //设置平截头体 zNear:近平面 zFar:远平面
-        gl.glFrustumf(-1f, 1f, -ratio, ratio, 3, 7);
+        gl.glFrustumf( -ratio, ratio, -1f, 1f, 3, 7);
     }
 
     //绘图
@@ -74,7 +74,7 @@ class MyTriangleRenderer implements GLSurfaceView.Renderer {
         FloatBuffer fbb = ibb.asFloatBuffer();
         fbb.put(coords);
         //定位指针的位置, 从该位置开始读取顶点数据
-        fbb.position(0);
+        ibb.position(0);
         //设置绘图的颜色 (红色)
         gl.glColor4f(1f, 0f, 0f, 1f);
 

@@ -19,17 +19,23 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MyPointRenderer renderer;
+    private AbstractMyRenderer renderer;
+    private MyGLSurfaceView myGLSurfaceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyGLSurfaceView view = new MyGLSurfaceView(this);
+        myGLSurfaceView = new MyGLSurfaceView(this);
         //renderer: 渲染器
-        //view.setRenderer(new MyTriangleRenderer());
-        renderer = new MyPointRenderer();
-        view.setRenderer(renderer);
-        setContentView(view);
+        renderer = new MyPointSizeRenderer();
+        //renderer = new MyPointRenderer();
+        //myGLSurfaceView.setRenderer(new MyTriangleRenderer());
+        myGLSurfaceView.setRenderer(renderer);
+        //设置渲染模式:
+        //GLSurfaceView.RENDERMODE_CONTINUOUSLY: 持续渲染(默认)
+        //GLSurfaceView.RENDERMODE_WHEN_DIRTY: 脏渲染, 命令渲染
+        myGLSurfaceView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        setContentView(myGLSurfaceView);
     }
     class MyGLSurfaceView extends GLSurfaceView {
 
@@ -48,11 +54,13 @@ public class MainActivity extends AppCompatActivity {
         switch (keyCode) {
             case KeyEvent.KEYCODE_MENU:
                 renderer.xrotate  = renderer.xrotate - step;//沿x轴向上旋转
-                return true;
+                break;
             case KeyEvent.KEYCODE_BACK:
                 renderer.yrotate = renderer.yrotate + step;//沿y轴向左旋转
-                return true;
+                break;
         }
-        return super.onKeyDown(keyCode, event);
+        //请求渲染, 与脏渲染配合使用
+        myGLSurfaceView.requestRender();
+        return true;
     }
 }
