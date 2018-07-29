@@ -2,19 +2,10 @@ package com.example.lulu.opengldemo;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import android.opengl.GLU;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
-
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,9 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         myGLSurfaceView = new MyGLSurfaceView(this);
         //renderer: 渲染器
-        renderer = new MyPointSizeRenderer();
-        //renderer = new MyPointRenderer();
-        //myGLSurfaceView.setRenderer(new MyTriangleRenderer());
+        renderer = new MyTriangleRenderer();
         myGLSurfaceView.setRenderer(renderer);
         //设置渲染模式:
         //GLSurfaceView.RENDERMODE_CONTINUOUSLY: 持续渲染(默认)

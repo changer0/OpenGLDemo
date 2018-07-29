@@ -5,8 +5,6 @@ import android.opengl.GLU;
 import com.example.lulu.opengldemo.utils.BufferUtil;
 
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +12,9 @@ import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Created by zhanglulu on 2018/7/26.
- * for 点渲染器 绘制点大小变化的螺旋线
+ * for 线集渲染器
  */
-public class MyPointSizeRenderer extends AbstractMyRenderer{
+public class MyLinesRenderer extends AbstractMyRenderer{
 
     @Override
     public void onDrawFrame(GL10 gl) {
@@ -40,22 +38,27 @@ public class MyPointSizeRenderer extends AbstractMyRenderer{
         //计算点坐标
         float r = 0.5f;//半径
         //  旋转3圈
-        float x = 0f, y = 0f, z = 1f;
-        float zstep = 0.01f;//z的步长
-        float psize   = 1.0f;//点的大小
-        float pstep = 0.5f;//点的步长
+        float x = 0f, y = 0f, z = 0f;
+        List<Float> coordsList = new ArrayList<>();
         //循环绘制
-        for (float alpha = 0f; alpha < Math.PI * 6; alpha = (float) (alpha + Math.PI/32)) {
+        for (float alpha = 0f; alpha < Math.PI * 2; alpha = (float) (alpha + Math.PI/16)) {
             x = (float) (r * Math.cos(alpha));
             y = (float) (r * Math.sin(alpha));
-            z = z - zstep;
-            //设置点的大小
-            gl.glPointSize(psize = psize + pstep);
-            //指定顶点指针
-            gl.glVertexPointer(3, GL10.GL_FLOAT, 0, BufferUtil.arr2ByteBuffer(new float[]{x, y, z}));
-            //画数组
-            gl.glDrawArrays(GL10.GL_POINTS, 0, 1);
+            //原点位置
+            coordsList.add(0f);
+            coordsList.add(0f);
+            coordsList.add(0f);
+            //圆上点位置
+            coordsList.add(x);
+            coordsList.add(y);
+            coordsList.add(z);
         }
+
+        //指定顶点指针
+        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, BufferUtil.list2ByteBuffer(coordsList));
+
+        //画数组
+        gl.glDrawArrays(GL10.GL_LINES, 0, coordsList.size() / 3);
 
     }
 }
