@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         myGLSurfaceView = new MyGLSurfaceView(this);
         //renderer: 渲染器
-        renderer = new MyTriangleRenderer();
+        renderer = new MyTriangleConeRenderer();
         myGLSurfaceView.setRenderer(renderer);
         //设置渲染模式:
         //GLSurfaceView.RENDERMODE_CONTINUOUSLY: 持续渲染(默认)
@@ -41,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         float step = 5f;
         switch (keyCode) {
-            case KeyEvent.KEYCODE_MENU:
+            case KeyEvent.KEYCODE_BACK:
                 renderer.xrotate  = renderer.xrotate - step;//沿x轴向上旋转
                 break;
-            case KeyEvent.KEYCODE_BACK:
+            case KeyEvent.KEYCODE_MENU:
                 renderer.yrotate = renderer.yrotate + step;//沿y轴向左旋转
                 break;
         }
