@@ -18,10 +18,13 @@ public class MyTriangleConeRenderer extends AbstractMyRenderer{
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        //清除颜色缓冲区
-        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        //清除颜色缓冲区 和 深度缓冲区
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         //设置绘图颜色
         gl.glColor4f(1f, 0f, 0f, 1f);
+
+        //启用深度测试
+        gl.glEnable(GL10.GL_DEPTH_TEST);
 
         //操作模型视图
         gl.glMatrixMode(GL10.GL_MODELVIEW);
@@ -67,7 +70,8 @@ public class MyTriangleConeRenderer extends AbstractMyRenderer{
 
         boolean flag = false;
         //底面
-        for (float alpha = 0f; alpha < Math.PI * 2; alpha = (float) (alpha + Math.PI / 6)) {
+        for (float alpha = 0f; alpha < Math.PI * 2;
+             alpha = (float) (alpha + Math.PI / 6)) {
             //点坐标值
             x = (float) (r * Math.cos(alpha));
             y = (float) (r * Math.sin(alpha));
@@ -115,13 +119,15 @@ public class MyTriangleConeRenderer extends AbstractMyRenderer{
         ByteBuffer colorBuffer = BufferUtil.list2ByteBuffer(colorList);
         gl.glColorPointer(4, GL10.GL_FLOAT, 0,colorBuffer);
         //绘制锥面
-        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, BufferUtil.list2ByteBuffer(coordsList));
+        gl.glVertexPointer(3, GL10.GL_FLOAT, 0,
+                BufferUtil.list2ByteBuffer(coordsList));
         gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, coordsList.size()/ 3);
 
         //绘制锥底
         colorBuffer.position(4*4);//移动4*4个字节,也就是挪动1个颜 色值
         gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
-        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, BufferUtil.list2ByteBuffer(coordsConeBottomList));
+        gl.glVertexPointer(3, GL10.GL_FLOAT, 0,
+                BufferUtil.list2ByteBuffer(coordsConeBottomList));
         gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, coordsConeBottomList.size()/ 3);
     }
 }
