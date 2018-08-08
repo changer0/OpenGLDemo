@@ -18,7 +18,7 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public abstract class AbstractMyRenderer implements GLSurfaceView.Renderer{
 
-    private float ratio;
+    protected float ratio;
 
     public float xrotate = 0f; //围绕x轴旋转角度
     public float yrotate = 0f;  //围绕y轴旋转角度

@@ -22,9 +22,14 @@ public class MyTriangleConeRenderer extends AbstractMyRenderer{
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         //设置绘图颜色
         gl.glColor4f(1f, 0f, 0f, 1f);
-
         //启用深度测试
         gl.glEnable(GL10.GL_DEPTH_TEST);
+        //启用表面剔除
+        gl.glEnable(GL10.GL_CULL_FACE);
+        //指定正面
+        //ccw: counter clock wise -> 逆时针
+        //cw: clock wise -> 顺时针
+        gl.glFrontFace(GL10.GL_CCW);
 
         //操作模型视图
         gl.glMatrixMode(GL10.GL_MODELVIEW);
@@ -118,11 +123,16 @@ public class MyTriangleConeRenderer extends AbstractMyRenderer{
         //指定颜色缓冲区
         ByteBuffer colorBuffer = BufferUtil.list2ByteBuffer(colorList);
         gl.glColorPointer(4, GL10.GL_FLOAT, 0,colorBuffer);
+
+        //画锥面之前剔除背面
+        gl.glCullFace(GL10.GL_BACK);
         //绘制锥面
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0,
                 BufferUtil.list2ByteBuffer(coordsList));
         gl.glDrawArrays(GL10.GL_TRIANGLE_FAN, 0, coordsList.size()/ 3);
 
+        //画锥底时不能剔除背面(由于指定了逆时针为正面)
+        gl.glCullFace(GL10.GL_FRONT);
         //绘制锥底
         colorBuffer.position(4*4);//移动4*4个字节,也就是挪动1个颜 色值
         gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
