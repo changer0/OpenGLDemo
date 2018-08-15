@@ -49,4 +49,18 @@ public class BufferUtil {
         ibb.position(0);
         return ibb;
     }
+
+    /**
+     * 将list转换为Float缓冲区
+     */
+    public static FloatBuffer list2FloatBuffer(List<Float> list) {
+        ByteBuffer ibb = ByteBuffer.allocateDirect(list.size() * 4);
+        ibb.order(ByteOrder.nativeOrder());
+        FloatBuffer fbb = ibb.asFloatBuffer();
+        for (Float aFloat : list) {
+            fbb.put(aFloat);
+        }
+        fbb.position(0);
+        return fbb;
+    }
 }

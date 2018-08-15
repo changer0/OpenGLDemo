@@ -22,12 +22,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         myGLSurfaceView = new MyGLSurfaceView(this);
         //renderer: 渲染器
-        renderer = new MyTriangleRenderer();
+        renderer = new MyStencilRenderer();
+        myGLSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
         myGLSurfaceView.setRenderer(renderer);
         //设置渲染模式:
         //GLSurfaceView.RENDERMODE_CONTINUOUSLY: 持续渲染(默认)
         //GLSurfaceView.RENDERMODE_WHEN_DIRTY: 脏渲染, 命令渲染
-        myGLSurfaceView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        myGLSurfaceView.setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
         ((ViewGroup) findViewById(R.id.gl_surface_view)).addView(myGLSurfaceView);
 
         left = ((Button) findViewById(R.id.left));
@@ -72,6 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         //请求渲染, 与脏渲染配合使用
-        myGLSurfaceView.requestRender();
+        //myGLSurfaceView.requestRender();
     }
 }

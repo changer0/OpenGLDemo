@@ -30,7 +30,7 @@ public abstract class AbstractMyRenderer implements GLSurfaceView.Renderer{
         //启用顶点缓冲区
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         //启动颜色缓冲区
-        gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+        //gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
     }
 
     @Override
