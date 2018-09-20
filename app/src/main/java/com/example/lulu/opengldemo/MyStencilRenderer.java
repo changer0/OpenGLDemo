@@ -13,7 +13,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Created by zhanglulu on 2018/8/12.
- * for 测试模板缓冲区
+ * for 测试模板缓冲区 废弃!
  */
 public class MyStencilRenderer extends AbstractMyRenderer {
 
