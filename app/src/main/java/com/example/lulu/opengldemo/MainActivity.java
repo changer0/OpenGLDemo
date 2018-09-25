@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         myGLSurfaceView = new MyGLSurfaceView(this);
         //renderer: 渲染器
         renderer = new MySphereRenderer();
+//        renderer = new MyTriangleConeRenderer();
         myGLSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
         myGLSurfaceView.setRenderer(renderer);
         //设置渲染模式:

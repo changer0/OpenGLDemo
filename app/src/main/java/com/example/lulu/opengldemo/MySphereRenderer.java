@@ -38,12 +38,14 @@ public class MySphereRenderer extends AbstractMyRenderer {
         int stack = 8;//水平层数
         float stackStep = ((float) (Math.PI / stack));//单位角度值 180度
         int slice = 12;//竖直
-        float sliceStep = (float) ((Math.PI) / slice);//水平圆递增角度 360度
+        float sliceStep = (float) ((Math.PI*2) / slice);//水平圆递增角度 360度
 
+        //上下两个圆的坐标 半径
         float r0, r1, x0, x1, y0, y1, z0, z1;
+        //两个切片的夹角
         float alpha0 = 0;
         float alpha1 = 0;
-
+        //切片圆的角度
         float beta = 0;
 
         //顶点坐标

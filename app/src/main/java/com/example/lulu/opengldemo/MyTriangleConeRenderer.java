@@ -18,6 +18,8 @@ public class MyTriangleConeRenderer extends AbstractMyRenderer{
 
     @Override
     public void onDrawFrame(GL10 gl) {
+        //启动颜色缓冲区
+        gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
         //清除颜色缓冲区 和 深度缓冲区
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         //设置绘图颜色
