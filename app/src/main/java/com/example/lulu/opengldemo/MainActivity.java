@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         myGLSurfaceView = new MyGLSurfaceView(this);
         //renderer: 渲染器
-        renderer = new MyRingRenderer();
+        renderer = new MyTextureRenderer(this);
 //        renderer = new MyTriangleConeRenderer();
         myGLSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
         myGLSurfaceView.setRenderer(renderer);
